@@ -5,3 +5,4 @@ skip-string-normalization = true
 
 [mypy]
 explicit_package_bases = true
+namespace_packages = true
