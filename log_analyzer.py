@@ -35,9 +35,9 @@ def get_config(args):
             with open(replace_path('./data.json'), 'rt') as file:
                 new_config = json.load(file)
         except FileNotFoundError:
-            logger1.error( f'no inpit config-file' )
+            logger1.error('no inpit config-file')
     except BaseException:
-        logger1.error( f'no inpit config-file' )
+        logger1.error('no inpit config-file')
         quit(1)
 
     default_config = {
@@ -171,7 +171,7 @@ def main(args):
         logger1.error("Некорректный ввод ")
 
     except KeyboardInterrupt:
-        logger1.error( f'skrypt was interrupted by keybord' )
+        logger1.error('skrypt was interrupted by keybord')
         quit(1)
 
     except Exception as e:
