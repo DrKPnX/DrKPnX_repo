@@ -10,7 +10,7 @@ import gzip
 
 def test_split_and_clear():
     test_line = (
-        '1.2.3.4 - - [01/Jan/2023:12:34:56 +0000] "GET /api/v1/test HTTP/1.1" 200 1234 "-"'
+        '1.2.3.4 - - [01/Jan/2023:12:34:56 +0000] "GET /api/v1/test HTTP/1.1" 200 1234 "-" '
         '"python-requests/2.28.1" "-" "-" "-" 0.123'
     )
     expected = [
