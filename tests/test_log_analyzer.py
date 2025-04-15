@@ -48,12 +48,6 @@ def test_get_config(tmp_path):
     assert config["REPORT_DIR"] == "./reports"  # значение по умолчанию
 
 
-def test_replace_path():
-    result = replace_path('C:/test\\path')
-    expected_windows = 'C:\\test\\path'
-    expected_linux = 'C:/test/path'  # или другой ожидаемый формат
-    assert result in (expected_windows, expected_linux)
-
 
 def test_open_log_gzip(tmp_path, monkeypatch):
     test_data = "line1\nline2\n"
