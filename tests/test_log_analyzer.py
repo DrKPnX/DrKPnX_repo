@@ -1,7 +1,6 @@
 from log_analyzer import (
     split_and_clear,
     get_config,
-    replace_path,
     open_log,
 )
 import json
@@ -46,7 +45,6 @@ def test_get_config(tmp_path):
     assert config["REPORT_SIZE"] == 500
     assert config["LOG_DIR"] == "/tmp/logs"
     assert config["REPORT_DIR"] == "./reports"  # значение по умолчанию
-
 
 
 def test_open_log_gzip(tmp_path, monkeypatch):
