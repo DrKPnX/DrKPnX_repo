@@ -15,8 +15,7 @@ import logging
 logger1 = logging.getLogger('logger1')
 logger1.setLevel(logging.INFO)
 handler1 = logging.FileHandler('main_log.log', mode='a')  # a
-formatter1 = logging.Formatter(
-    '%(asctime)s;%(message)s', datefmt='%d/%m/%Y %H:%M:%S')  # %(levelname)s
+formatter1 = logging.Formatter('%(asctime)s;%(message)s', datefmt='%d/%m/%Y %H:%M:%S')  # %(levelname)s
 handler1.setFormatter(formatter1)
 logger1.addHandler(handler1)
 
@@ -40,11 +39,7 @@ def get_config(args):
         logger1.error('no inpit config-file')
         quit(1)
 
-    default_config = {
-        "REPORT_SIZE": 1000,
-        "REPORT_DIR": "./reports",
-        "LOG_DIR": "./log/"
-    }
+    default_config = {"REPORT_SIZE": 1000, "REPORT_DIR": "./reports", "LOG_DIR": "./log/"}
 
     config = {}
 
@@ -79,8 +74,9 @@ def main(args):
     try:
         file_name = os.listdir(f'{config["LOG_DIR"]}')
         try:
-            max_file_name = max(file_name, key=lambda log_date: log_date.split('.')[
-                                1] if log_date.startswith('nginx-access-ui') else '')
+            max_file_name = max(
+                file_name, key=lambda log_date: log_date.split('.')[1] if log_date.startswith('nginx-access-ui') else ''
+            )
         except FileNotFoundError:
             logger1.error(f'no files in dir - {config["LOG_DIR"]}')
             return
@@ -99,8 +95,7 @@ def main(args):
         file_date = list(date)
         file_date = f"{''.join(file_date[:4])}.{''.join(file_date[4:][:2])}.{''.join(file_date[4:][2:])}"
         save_file_name = f'result-{file_date}.json'
-        if save_file_name in os.listdir(
-                replace_path(f'{config["REPORT_DIR"]}')):
+        if save_file_name in os.listdir(replace_path(f'{config["REPORT_DIR"]}')):
             logger1.info(f'nothing to do. "{save_file_name}" alrdy parsed')
             return
 
@@ -123,8 +118,7 @@ def main(args):
             all_time += request_time
 
             if request_url not in data_dict:
-                data_dict[request_url] = {
-                    "count": 1, "request_time": [request_time]}
+                data_dict[request_url] = {"count": 1, "request_time": [request_time]}
                 data_list.append(request_url)
 
             else:
@@ -137,24 +131,13 @@ def main(args):
             time_sum = sum(item_time)
             data_dict[item] = {
                 "count": cnt,
-                "count_perc": round(
-                    cnt / all_count * 100,
-                    3),
-                "time_sum": round(
-                    time_sum,
-                    3),
-                "time_perc": round(
-                    time_sum / all_time * 100,
-                    3),
-                "time_avg": round(
-                    time_sum / cnt,
-                    3),
-                "time_max": round(
-                    max(item_time),
-                    3),
-                "time_med": round(
-                    median(item_time),
-                    3)}
+                "count_perc": round(cnt / all_count * 100, 3),
+                "time_sum": round(time_sum, 3),
+                "time_perc": round(time_sum / all_time * 100, 3),
+                "time_avg": round(time_sum / cnt, 3),
+                "time_max": round(max(item_time), 3),
+                "time_med": round(median(item_time), 3),
+            }
 
         with open(replace_path(f'{config["REPORT_DIR"]}/{save_file_name}'), 'w') as fp:
             json.dump(data_dict, fp, indent=4, separators=(',', ': '))
@@ -180,7 +163,6 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', type=str, required=False,
-                        help='Path to the configuration file')
+    parser.add_argument('--config', type=str, required=False, help='Path to the configuration file')
     args = parser.parse_args()
     main(args)
