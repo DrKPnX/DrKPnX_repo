@@ -10,7 +10,7 @@ import gzip
 
 def test_split_and_clear():
     test_line = ('1.2.3.4 - - [01/Jan/2023:12:34:56 +0000] "GET /api/v1/test HTTP/1.1" 200 1234 "-"'
-     '"python-requests/2.28.1" "-" "-" "-" 0.123')
+                '"python-requests/2.28.1" "-" "-" "-" 0.123')
     expected = [
         '1.2.3.4', '-', '-', '01/Jan/2023:12:34:56 +0000',
         'GET /api/v1/test HTTP/1.1', '200', '1234', '-',
@@ -38,18 +38,6 @@ def test_get_config(tmp_path):
 
 def test_replace_path():
     assert replace_path('C:/test\\path') == 'C:\\test\\path'
-
-
-def test_get_config(tmp_path):
-    config_file = tmp_path / "config.json"
-    config_file.write_text('{"REPORT_SIZE": 500, "LOG_DIR": "/custom/logs"}')
-
-    class Args:
-        config = str(config_file)
-
-    config = get_config(Args())
-    assert config["REPORT_SIZE"] == 500
-    assert config["LOG_DIR"] == "/custom/logs"
 
 
 def test_open_log_gzip(tmp_path, monkeypatch):
