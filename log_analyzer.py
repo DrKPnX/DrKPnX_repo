@@ -19,6 +19,7 @@ formatter1 = logging.Formatter(
 handler1.setFormatter(formatter1)
 logger1.addHandler(handler1)
 
+
 def replace_path(cur_path):
     return os.path.normpath(cur_path)
 
@@ -37,7 +38,6 @@ def get_config(args):
     except BaseException:
         logger1.error(f'no inpit config-file')
         quit(1)
-
 
     default_config = {
         "REPORT_SIZE": 1000,
@@ -180,6 +180,6 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, required=False,
-                    help='Path to the configuration file')
+                        help='Path to the configuration file')
     args = parser.parse_args()
     main(args)
